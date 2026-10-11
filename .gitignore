@@ -1,0 +1,57 @@
+# ===== 环境与密钥 =====
+.env
+.env.*
+!.env.example
+
+# ===== Python =====
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# ===== 运行期数据 =====
+backend/data/
+backend/uploads/
+backend/instance/
+backups/
+/models/
+backend/models/
+*.db
+*.db-wal
+*.db-shm
+*.db.bak*
+
+# ===== 模型权重（体积大，用 backend/scripts/download_models.py 获取） =====
+*.bin
+*.safetensors
+*.onnx
+*.onnx_data
+*.h5
+*.msgpack
+
+# ===== 密钥文件兜底：正常情况不该出现，出现也不许入库 =====
+*.pem
+*.key
+*.p12
+credentials.json
+secrets.*
+
+# ===== 前端 =====
+node_modules/
+dist/
+.vite/
+*.local
+npm-debug.log*
+
+# ===== 系统与 IDE 机器相关文件 =====
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+

@@ -1,0 +1,12 @@
+Alembic 迁移目录。
+
+versions/ 下两个 revision：
+  0001_baseline              空基线，只为让 `alembic upgrade head` 有 HEAD 可到达
+  832a1500facd_add_core_tables_9_tables   9 张表的建表迁移
+
+模型改动后生成新迁移（在 backend/ 目录下执行）：
+    alembic revision --autogenerate -m "说明"
+    alembic upgrade head
+
+注意：新模型必须在 app/models/__init__.py 里导入，否则 autogenerate 采集不到。
+

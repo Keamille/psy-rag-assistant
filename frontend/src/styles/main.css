@@ -1,0 +1,163 @@
+/* 全局样式与设计变量。
+ *
+ * 所有颜色、间距、圆角、阴影都收敛成变量，组件里不再写死色值。
+ * 这样调整视觉只需要改这一个文件，也避免了"同一个灰在不同组件里是三个值"。
+ */
+
+:root {
+  /* 颜色 */
+  --psy-bg: #f5f6f8;
+  --psy-panel: #ffffff;
+  --psy-panel-soft: #fbfcfe;
+  --psy-surface-soft: #f7f8fa;
+  --psy-hover: #f0f2f5;
+  --psy-active: #eef2f8;
+  --psy-border: #e4e7ed;
+  --psy-border-soft: #dde5f0;
+
+  --psy-text: #303133;
+  --psy-text-soft: #606266;
+  --psy-text-muted: #909399;
+
+  --psy-primary: #4a6fa5;
+  --psy-success: #3c9a5f;
+  --psy-warning: #e08a1e;
+  --psy-danger: #d93025;
+
+  /* 危机等级：高危用红、中危用橙，不用动画，避免刺激 */
+  --psy-crisis-high: #d93025;
+  --psy-crisis-medium: #e08a1e;
+  --psy-crisis-high-bg: #fdf3f2;
+  --psy-crisis-medium-bg: #fdf7ee;
+
+  /* 尺寸 */
+  --psy-radius-sm: 4px;
+  --psy-radius: 8px;
+  --psy-radius-lg: 12px;
+  --psy-space-xs: 4px;
+  --psy-space-sm: 8px;
+  --psy-space: 12px;
+  --psy-space-lg: 16px;
+
+  /* 阴影 */
+  --psy-shadow: 0 1px 2px rgb(0 0 0 / 3%);
+  --psy-shadow-raised: 0 2px 8px rgb(0 0 0 / 8%);
+
+  /* Element Plus 主色对齐 */
+  --el-color-primary: #4a6fa5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--psy-bg);
+  color: var(--psy-text);
+  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.psy-muted,
+.psy-hint {
+  color: var(--psy-text-soft);
+}
+
+.psy-hint {
+  font-size: 12px;
+}
+
+/* AI 回答里的引用角标 [n]。可点击，定位到来源卡片。 */
+.cite-ref {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  margin: 0 2px;
+  padding: 0 4px;
+  border: none;
+  border-radius: var(--psy-radius);
+  background: var(--psy-primary);
+  color: #fff;
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  vertical-align: super;
+}
+
+.cite-ref:hover,
+.cite-ref:focus-visible {
+  opacity: 0.85;
+  outline: 2px solid var(--psy-primary);
+  outline-offset: 1px;
+}
+
+/* Markdown 正文排版 */
+.psy-markdown p {
+  margin: 0 0 10px;
+}
+
+.psy-markdown p:last-child {
+  margin-bottom: 0;
+}
+
+.psy-markdown ul,
+.psy-markdown ol {
+  padding-left: 20px;
+}
+
+.psy-markdown pre.hljs {
+  padding: 10px 12px;
+  border-radius: var(--psy-radius-sm);
+  overflow-x: auto;
+  background: var(--psy-surface-soft);
+  font-size: 12px;
+}
+
+.psy-markdown code {
+  font-family: Consolas, Monaco, "Courier New", monospace;
+}
+
+.psy-markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.psy-markdown th,
+.psy-markdown td {
+  padding: 6px 8px;
+  border: 1px solid var(--psy-border);
+  text-align: left;
+}
+
+/* 表格在窄屏下横向滚动，而不是把内容挤成一团 */
+.el-table {
+  width: 100%;
+}
+
+.el-table__body-wrapper {
+  overflow-x: auto;
+}
+
+/* 无障碍：尊重系统的"减少动态效果"设置 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

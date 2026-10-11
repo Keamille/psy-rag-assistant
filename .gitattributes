@@ -1,0 +1,15 @@
+# 统一以 LF 存入仓库，避免 Windows 上写出的 shell 脚本在容器内报
+# "bad interpreter: /bin/sh^M"（开发文档 13.6 记录过这个坑）
+* text=auto eol=lf
+
+*.sh text eol=lf
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+
+*.png binary
+*.jpg binary
+*.pdf binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+

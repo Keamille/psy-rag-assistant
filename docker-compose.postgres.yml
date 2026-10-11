@@ -1,0 +1,41 @@
+# 可选叠加文件：把关系库从 SQLite 切到 PostgreSQL
+#
+#   docker compose -f docker-compose.yml -f docker-compose.postgres.yml up -d
+#
+# 使用前需在 .env 中确认：
+#   DATABASE_URL=postgresql+psycopg://psy:psy@postgres:5432/psy
+# 并执行一次数据迁移（开发文档 13.10 升级流程）。
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-psy}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-psy}
+      POSTGRES_DB: ${POSTGRES_DB:-psy}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-psy}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  web:
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-psy}:${POSTGRES_PASSWORD:-psy}@postgres:5432/${POSTGRES_DB:-psy}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  worker:
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-psy}:${POSTGRES_PASSWORD:-psy}@postgres:5432/${POSTGRES_DB:-psy}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+

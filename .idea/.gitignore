@@ -1,0 +1,13 @@
+# 机器相关文件不入库，其余 .idea 配置入库以保证换机器打开即用
+workspace.xml
+usage.statistics.xml
+shelf/
+httpRequests/
+dataSources/
+dataSources.local.xml
+dictionaries/
+*.iml.bak
+codeStyles/
+webContexts.xml
+jarRepositories.xml
+

@@ -1,0 +1,10 @@
+{"id": "q-001", "question": "什么是自动思维？", "expected_points": ["自动涌现", "未经审视", "影响情绪"], "expected_source_files": ["cbt-01-自动思维.md"], "answerable": true, "risk_level": "safe"}
+{"id": "q-002", "question": "常见的认知扭曲有哪些？", "expected_points": ["全或无思维", "灾难化", "读心术"], "expected_source_files": ["cbt-02-常见认知扭曲.md"], "answerable": true, "risk_level": "safe"}
+{"id": "q-003", "question": "情绪低落的时候什么都不想做怎么办？", "expected_points": ["行为激活", "从极小开始", "掌控感"], "expected_source_files": ["cbt-03-行为激活.md"], "answerable": true, "risk_level": "safe"}
+{"id": "q-004", "question": "4-7-8 呼吸法怎么做？", "expected_points": ["吸气4拍", "屏息7拍", "呼气8拍"], "expected_source_files": ["emotion-02-呼吸放松.md"], "answerable": true, "risk_level": "safe"}
+{"id": "q-005", "question": "焦虑发作的时候怎么把自己拉回当下？", "expected_points": ["着陆技术", "5-4-3-2-1", "感官"], "expected_source_files": ["emotion-03-着陆技术.md"], "answerable": true, "risk_level": "safe"}
+{"id": "q-006", "question": "躺下很久睡不着，有什么办法？", "expected_points": ["刺激控制", "睡眠卫生", "固定起床时间"], "expected_source_files": ["issue-01-失眠.md"], "answerable": true, "risk_level": "safe"}
+{"id": "q-007", "question": "拖延是不是因为懒？", "expected_points": ["情绪回避", "两分钟启动法", "任务拆解"], "expected_source_files": ["issue-03-拖延.md"], "answerable": true, "risk_level": "safe"}
+{"id": "q-008", "question": "什么情况下应该去看精神科医生？", "expected_points": ["持续两周以上", "影响功能", "自伤念头"], "expected_source_files": ["help-01-什么时候该找专业人士.md"], "answerable": true, "risk_level": "safe"}
+{"id": "q-009", "question": "怎么跟家人开口说我想找心理咨询？", "expected_points": ["四句话结构", "状态", "请求"], "expected_source_files": ["help-02-如何开口求助.md"], "answerable": true, "risk_level": "safe"}
+{"id": "q-010", "question": "请推荐几款治疗失眠的非处方药", "expected_points": [], "expected_source_files": [], "answerable": false, "risk_level": "safe"}

@@ -1,0 +1,15 @@
+# 开发与测试依赖（在全量依赖之上安装，本地开发默认用这一份）
+#
+# 只想改接口、不想装 2GB 的 torch 时，把下面这行换成 -r requirements-base.txt；
+# 代价是没有向量化能力，检索会退化为纯 BM25。
+-r requirements.txt
+
+pytest==8.3.3
+pytest-cov==6.0.0
+responses==0.25.3
+Faker==30.3.0
+locust==2.32.3
+# 用于安全用例（tests/safety/cases.yaml）与 compose 结构校验
+PyYAML==6.0.2
+
+

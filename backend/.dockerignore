@@ -1,0 +1,16 @@
+.venv
+__pycache__
+*.py[cod]
+.pytest_cache
+.mypy_cache
+.ruff_cache
+tests
+data
+uploads
+*.db
+*.db-wal
+*.db-shm
+docs
+*.md
+.idea
+

@@ -1,0 +1,32 @@
+# ============================================================
+# 最小可运行集（约 30–50 MB）：只有 Web 层与数据层。
+#
+# 不含 torch / sentence-transformers / FlagEmbedding / 文档解析库，
+# 因此**没有向量化与检索能力**（检索会退化为纯 BM25）。
+# 仅用于"只想改接口、不想等 2GB 依赖"的本地迭代；正式运行用 requirements.txt。
+# ============================================================
+
+# --- Web 框架与扩展 ---
+Flask==3.0.3
+Flask-SQLAlchemy==3.1.1
+Flask-JWT-Extended==4.6.0
+Flask-Migrate==4.0.7
+Flask-Cors==4.0.1
+
+# --- 数据层 ---
+SQLAlchemy==2.0.35
+alembic==1.13.3
+
+# --- 通用 ---
+argon2-cffi==23.1.0
+pydantic==2.9.2
+python-dotenv==1.0.1
+httpx==0.27.2
+
+# --- 队列 ---
+redis==5.1.0
+rq==1.16.2
+
+# --- WSGI（容器内使用；Windows 原生开发可另装 waitress） ---
+gunicorn==22.0.0
+

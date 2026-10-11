@@ -1,0 +1,50 @@
+{
+  "CN": {
+    "verified_at": "2026-10-04",
+    "notice": "热线号码与可用时间会变动，上线前必须逐条拨打核实；建议每季度复核一次。",
+    "items": [
+      {
+        "name": "全国统一心理援助热线",
+        "phone": "12356",
+        "description": "全国心理援助热线，提供心理支持与危机干预",
+        "priority": 10,
+        "is_active": true
+      },
+      {
+        "name": "北京心理危机研究与干预中心",
+        "phone": "010-82951332",
+        "description": "24 小时心理危机干预热线",
+        "priority": 20,
+        "is_active": true
+      },
+      {
+        "name": "紧急医疗救助",
+        "phone": "120",
+        "description": "如有身体伤害或生命危险，请立即拨打急救电话",
+        "priority": 90,
+        "is_active": true
+      },
+      {
+        "name": "公安报警",
+        "phone": "110",
+        "description": "如你或他人正处于紧急危险中",
+        "priority": 95,
+        "is_active": true
+      }
+    ]
+  },
+  "HK": {
+    "verified_at": "2026-10-04",
+    "notice": "示例配置，上线前需核实。",
+    "items": [
+      {
+        "name": "撒玛利亚防止自杀会",
+        "phone": "2389 2222",
+        "description": "24 小时情绪支援热线",
+        "priority": 10,
+        "is_active": true
+      }
+    ]
+  }
+}
+

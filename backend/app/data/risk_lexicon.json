@@ -1,0 +1,30 @@
+{
+  "version": "v1.0",
+  "note": "regex 字段为字符串模式，加载时由代码编译为 Pattern；null 表示用 term 做字面匹配。当前为可用的初版词表，需按开发文档附录 C 的编写原则持续扩充。",
+  "high": [
+    { "term": "不想活了", "regex": null, "negation_prefixes": ["不", "没"] },
+    { "term": "自杀", "regex": null, "negation_prefixes": ["不", "没", "反对", "预防", "研究"] },
+    { "term": "结束生命", "regex": null, "negation_prefixes": [] },
+    { "term": "割腕", "regex": null, "negation_prefixes": [] },
+    { "term": "跳楼", "regex": null, "negation_prefixes": [] },
+    { "term": "遗书", "regex": null, "negation_prefixes": [] },
+    { "term": "安眠药过量", "regex": "(吞|吃|服用).{0,6}安眠药|安眠药.{0,6}(自杀|结束)", "negation_prefixes": [] },
+    { "term": "告别", "regex": "(见).{0,4}最后一面|(告别|道别)", "negation_prefixes": [] }
+  ],
+  "medium": [
+    { "term": "活着没意思", "regex": null, "negation_prefixes": ["不"] },
+    { "term": "撑不下去", "regex": null, "negation_prefixes": [] },
+    { "term": "睡过去不要醒", "regex": null, "negation_prefixes": [] },
+    { "term": "毫无价值", "regex": "(我|自己).{0,6}(没有价值|毫无价值|是个累赘|拖累)", "negation_prefixes": [] },
+    { "term": "极度绝望", "regex": "(非常|特别|极度).{0,3}绝望", "negation_prefixes": [] }
+  ],
+  "context_rules": {
+    "quotation_markers": ["他说", "她说", "朋友说", "电影", "小说", "新闻", "段子", "台词", "书里"],
+    "hypothetical_markers": ["如果", "假如", "假设", "要是"]
+  },
+  "windows": {
+    "snippet_radius": 60,
+    "negation_lookback": 4
+  }
+}
+

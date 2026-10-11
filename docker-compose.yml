@@ -1,0 +1,114 @@
+name: psy-rag-assistant
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+    depends_on:
+      web:
+        condition: service_healthy
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ./backend
+      args:
+        # 默认装全量依赖（含 torch 与向量化/解析库，镜像约 3–4 GB）。
+        # 只想快速看界面时可临时用 BACKEND_REQ_FILE=requirements-base.txt，
+        # 但那样容器内没有向量化能力，检索会静默退化为纯 BM25。
+        REQ_FILE: ${BACKEND_REQ_FILE:-requirements.txt}
+    env_file: [.env]
+    environment:
+      HF_HOME: /models/hf-cache
+      DATABASE_URL: sqlite:////data/app.db
+      REDIS_URL: redis://redis:6379/0
+      CHROMA_HOST: chroma
+      CHROMA_PORT: "8000"
+    volumes:
+      - app_data:/data
+      - hf_cache:/models/hf-cache
+    # 注意：这里必须用 list + 字面块（|），不能用 ">" 折叠块的多行缩进写法，
+    # 否则 YAML 会把续行当作“更缩进行”保留换行，gunicorn 参数会被拆成两行导致启动失败。
+    command:
+      - sh
+      - -c
+      - |
+        alembic upgrade head &&
+        python -m app.cli init-admin &&
+        python -m app.cli seed-knowledge &&
+        exec gunicorn -k gthread -w 2 --threads 8 --timeout 180 \
+          --access-logfile - --error-logfile - -b 0.0.0.0:8000 wsgi:app
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 120s
+    depends_on:
+      redis:
+        condition: service_healthy
+      chroma:
+        condition: service_healthy
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: ./backend
+      args:
+        REQ_FILE: ${BACKEND_REQ_FILE:-requirements.txt}
+    env_file: [.env]
+    environment:
+      HF_HOME: /models/hf-cache
+      DATABASE_URL: sqlite:////data/app.db
+      REDIS_URL: redis://redis:6379/0
+      CHROMA_HOST: chroma
+      CHROMA_PORT: "8000"
+    volumes:
+      - app_data:/data
+      - hf_cache:/models/hf-cache
+    command: python -m rq.cli worker --url redis://redis:6379/0 --logging_level INFO ingest
+    depends_on:
+      redis:
+        condition: service_healthy
+      chroma:
+        condition: service_healthy
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  chroma:
+    image: chromadb/chroma:0.5.23
+    environment:
+      IS_PERSISTENT: "TRUE"
+      PERSIST_DIRECTORY: /chroma/chroma
+      ANONYMIZED_TELEMETRY: "FALSE"
+    volumes:
+      - chroma_data:/chroma/chroma
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - python -c "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/api/v1/heartbeat')"
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+volumes:
+  app_data:
+  chroma_data:
+  hf_cache:
+  redis_data:
+
